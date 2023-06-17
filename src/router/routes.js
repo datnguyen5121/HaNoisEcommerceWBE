@@ -19,6 +19,10 @@ const routes = (app) => {
   // app.post("/api/create-new-book", JWTaction.checkUserJWT, bookController.createNewBook);
   app.post("/api/create-new-product", productController.createNewProduct);
   app.get("/api/get-product-by-id", productController.getProductById);
+  app.get(
+    "/api/get-product-by-category",
+    productController.getProductByCategory
+  );
   app.delete("/api/delete-product-by-id", productController.deleteProductById);
   app.delete("/api/delete-all-product", productController.deleteAllProduct);
   app.put("/api/update-product-by-id", productController.updateProductById);

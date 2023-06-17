@@ -112,7 +112,7 @@ let createNewProduct = (data) => {
       });
       resolve({
         EC: 0,
-        EM: "create new book success!",
+        EM: "create new product success!",
         data: result,
       });
     } catch (e) {
@@ -134,6 +134,22 @@ let getProductById = (inputId) => {
     }
   });
 };
+
+let getProductByCategory = (inputCategory) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await Product.find({ category: { $in: inputCategory } });
+      resolve({
+        EC: 0,
+        EM: "Get the product success!",
+        data: data,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let deleteProductById = (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -176,7 +192,7 @@ let updateProductById = (inputId, inputData) => {
           size: inputData.size,
           imgUrl: inputData.imgUrl,
           price: inputData.price,
-        },
+        }
       );
       resolve({
         EC: 0,
@@ -194,6 +210,7 @@ const productService = {
   getProductById,
   deleteProductById,
   // getBookPaginateSearch,
+  getProductByCategory,
   deleteAllProduct,
   updateProductById,
   // getBookPaginate,

@@ -14,7 +14,7 @@ const productShema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 productShema.index({ title: "text" });
 

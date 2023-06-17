@@ -90,7 +90,7 @@ let getProductById = async (req, res) => {
     if (data) {
       return res.status(200).json(data);
     } else {
-      throw new Error("get book failed!");
+      throw new Error("get product failed!");
     }
   } catch (e) {
     return res.status(500).json({
@@ -99,6 +99,24 @@ let getProductById = async (req, res) => {
     });
   }
 };
+
+let getProductByCategory = async (req, res) => {
+  try {
+    let category = req.query.category;
+    const data = await productService.getProductByCategory(category);
+    if (data) {
+      return res.status(200).json(data);
+    } else {
+      throw new Error("get product failed!");
+    }
+  } catch (e) {
+    return res.status(500).json({
+      EC: 1,
+      EM: e.message,
+    });
+  }
+};
+
 let deleteProductById = async (req, res) => {
   try {
     let id = req.body.id;
@@ -154,6 +172,7 @@ const productController = {
   deleteProductById,
   deleteAllProduct,
   updateProductById,
+  getProductByCategory,
   // getBookPaginate,
   // getBookPaginateType,
   // getBookPaginateSearch,
