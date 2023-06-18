@@ -1,19 +1,19 @@
 import productService from "../service/productService.js";
-// let getAllBook = async (req, res) => {
-//   try {
-//     const data = await productService.getAllBook();
-//     if (data) {
-//       return res.status(200).json(data);
-//     } else {
-//       throw new Error("There are no book!");
-//     }
-//   } catch (e) {
-//     return res.status(500).json({
-//       EC: 1,
-//       EM: e.message,
-//     });
-//   }
-// };
+let getAllProduct = async (req, res) => {
+  try {
+    const data = await productService.getAllProduct();
+    if (data) {
+      return res.status(200).json(data);
+    } else {
+      throw new Error("There are no product!");
+    }
+  } catch (e) {
+    return res.status(500).json({
+      EC: 1,
+      EM: e.message,
+    });
+  }
+};
 
 // let getBookPaginate = async (req, res) => {
 //   try {
@@ -166,7 +166,7 @@ let updateProductById = async (req, res) => {
   }
 };
 const productController = {
-  // getAllBook,
+  getAllProduct,
   createNewProduct,
   getProductById,
   deleteProductById,
