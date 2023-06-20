@@ -1,5 +1,6 @@
 import Product from "../model/product.js";
 import escapeStringRegexp from "escape-string-regexp";
+import getLinks from "./firebaseService.js";
 let getAllProduct = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -96,12 +97,68 @@ let getAllProduct = () => {
 //     }
 //   });
 // };
+
+// let createNewProduct = async (data) => {
+//   try {
+//     console.log("service", data);
+//     const imageUrls = [];
+
+//     for (const image of data.images) {
+//       const imageUrl = await uploadImageToFirebase(data.title, image);
+//       imageUrls.push(imageUrl);
+//     }
+
+//     const result = await Product.create({
+//       productName: data.productName,
+//       title: data.title,
+//       description: data.description,
+//       datePublish: data.datePublish,
+//       category: data.category,
+//       size: data.size,
+//       imageUrls: imageUrls,
+//       price: data.price,
+//     });
+
+//     return {
+//       EC: 0,
+//       EM: "create new product success!",
+//       data: result,
+//     };
+//   } catch (e) {
+//     throw e;
+//   }
+// };
+
+// let createNewProduct = async (data) => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       const result = await Product.create({
+//         productName: data.productName,
+//         title: data.title,
+//         description: data.description,
+//         datePublish: data.datePublish,
+//         category: data.category,
+//         size: data.size,
+//         imgUrl: await getLinks(data),
+//         price: data.price,
+//       });
+//       resolve({
+//         EC: 0,
+//         EM: "create new product success!",
+//         data: result,
+//       });
+//     } catch (e) {
+//       reject(e);
+//     }
+//   });
+// };
+
 let createNewProduct = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       console.log("service", data);
       const result = await Product.create({
-        productName: data.productName,
+        gender: data.gender,
         title: data.title,
         description: data.description,
         datePublish: data.datePublish,
@@ -120,6 +177,7 @@ let createNewProduct = (data) => {
     }
   });
 };
+
 let getProductById = (inputId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -184,7 +242,7 @@ let updateProductById = (inputId, inputData) => {
       const data = await Product.findByIdAndUpdate(
         { _id: inputId },
         {
-          productName: inputData.productName,
+          gender: inputData.gender,
           title: inputData.title,
           description: inputData.description,
           datePublish: inputData.datePublish,

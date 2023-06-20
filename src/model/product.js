@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const productShema = new Schema(
   {
-    productName: { type: String, required: true },
+    gender: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     datePublish: { type: String, required: true },
