@@ -33,8 +33,8 @@ const routes = (app) => {
   app.delete("/api/delete-user-by-id", userController.deleteUserById);
   // app.delete("/api/delete-all-user", userController.deleteAllUser);
   app.put("/api/update-user-by-id", userController.updateUserById);
-  // app.post("/api/handle-login", userController.handleUserLogin);
-  // app.post("/api/handle-register", userController.handleUserRegister);
+  app.post("/api/handle-login", userController.handleUserLogin);
+  app.post("/api/handle-register", userController.handleUserRegister);
 
   // app.post("/refresh-token", userController.getTokenRefresh);
 
