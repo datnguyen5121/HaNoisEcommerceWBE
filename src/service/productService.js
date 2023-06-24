@@ -129,42 +129,17 @@ let getAllProduct = () => {
 //   }
 // };
 
-// let createNewProduct = async (data) => {
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       const result = await Product.create({
-//         productName: data.productName,
-//         title: data.title,
-//         description: data.description,
-//         datePublish: data.datePublish,
-//         category: data.category,
-//         size: data.size,
-//         imgUrl: await getLinks(data),
-//         price: data.price,
-//       });
-//       resolve({
-//         EC: 0,
-//         EM: "create new product success!",
-//         data: result,
-//       });
-//     } catch (e) {
-//       reject(e);
-//     }
-//   });
-// };
-
-let createNewProduct = (data) => {
+let createNewProduct = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log("service", data);
       const result = await Product.create({
-        gender: data.gender,
+        productName: data.productName,
         title: data.title,
         description: data.description,
         datePublish: data.datePublish,
         category: data.category,
         size: data.size,
-        imgUrl: data.imgUrl,
+        imgUrl: await getLinks(data),
         price: data.price,
       });
       resolve({
@@ -177,6 +152,31 @@ let createNewProduct = (data) => {
     }
   });
 };
+
+// let createNewProduct = (data) => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       console.log("service", data);
+//       const result = await Product.create({
+//         gender: data.gender,
+//         title: data.title,
+//         description: data.description,
+//         datePublish: data.datePublish,
+//         category: data.category,
+//         size: data.size,
+//         imgUrl: data.imgUrl,
+//         price: data.price,
+//       });
+//       resolve({
+//         EC: 0,
+//         EM: "create new product success!",
+//         data: result,
+//       });
+//     } catch (e) {
+//       reject(e);
+//     }
+//   });
+// };
 
 let getProductById = (inputId) => {
   return new Promise(async (resolve, reject) => {
@@ -250,7 +250,7 @@ let updateProductById = (inputId, inputData) => {
           size: inputData.size,
           imgUrl: inputData.imgUrl,
           price: inputData.price,
-        }
+        },
       );
       resolve({
         EC: 0,
