@@ -129,6 +129,7 @@ let getAllProductTag = async (req, res) => {
     });
   }
 };
+
 let updateProductTag = async (req, res) => {
   try {
     let id = req.body._id;
