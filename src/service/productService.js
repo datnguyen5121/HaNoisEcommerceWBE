@@ -21,6 +21,7 @@ let createNewProduct = async (data) => {
     try {
       const result = await Product.create({
         gender: data.gender,
+        productName: data.productName,
         title: data.title,
         description: data.description,
         datePublish: data.datePublish,
@@ -102,7 +103,7 @@ let getProductByGenderCategory = (gender, productName, inputCategory) => {
       const data = await Product.find(
         { gender: gender },
         { productName: productName },
-        { category: { $in: inputCategory } },
+        { category: { $in: inputCategory } }
       );
 
       resolve({
@@ -151,15 +152,15 @@ let updateProductById = (inputId, inputData) => {
         { _id: inputId },
         {
           gender: inputData.gender,
-          title: inputData.title,
           productName: inputData.productName,
+          title: inputData.title,
           description: inputData.description,
           datePublish: inputData.datePublish,
           category: inputData.category,
           size: inputData.size,
           imgUrl: inputData.imgUrl,
           price: inputData.price,
-        },
+        }
       );
       resolve({
         EC: 0,
