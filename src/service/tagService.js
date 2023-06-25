@@ -31,7 +31,20 @@ let getAllTag = () => {
     }
   });
 };
-
+let getAllTagAdmin = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await Tag.find({}).select("navName").lean(); // Populate the "navName" field with the referenced Tag model
+      resolve({
+        EC: 0,
+        EM: "get all product tag success!",
+        data: result,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let createNewTag = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -172,6 +185,7 @@ let deleteProductTag = (inputId) => {
 const tagService = {
   getTag,
   getAllTag,
+  getAllTagAdmin,
   createNewTag,
   updateTagById,
   deleteTag,

@@ -32,6 +32,21 @@ let getAllTag = async (req, res) => {
     });
   }
 };
+let getAllTagAdmin = async (req, res) => {
+  try {
+    const data = await tagService.getAllTagAdmin();
+    if (data) {
+      return res.status(200).json(data);
+    } else {
+      throw new Error("get all  tag failed!");
+    }
+  } catch (e) {
+    return res.status(500).json({
+      EC: 1,
+      EM: e.message,
+    });
+  }
+};
 let createNewTag = async (req, res) => {
   try {
     let dataReq = req.body;
@@ -166,6 +181,7 @@ let deleteProductTag = async (req, res) => {
 const tagController = {
   updateProductTag,
   getTag,
+  getAllTagAdmin,
   getAllTag,
   deleteTag,
   createNewTag,
