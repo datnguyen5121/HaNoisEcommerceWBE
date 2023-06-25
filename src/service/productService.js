@@ -21,6 +21,7 @@ let createNewProduct = async (data) => {
     try {
       const result = await Product.create({
         gender: data.gender,
+        productName: data.productName,
         title: data.title,
         description: data.description,
         datePublish: data.datePublish,
@@ -152,8 +153,8 @@ let updateProductById = (inputId, inputData) => {
         { _id: inputId },
         {
           gender: inputData.gender,
-          title: inputData.title,
           productName: inputData.productName,
+          title: inputData.title,
           description: inputData.description,
           datePublish: inputData.datePublish,
           category: inputData.category,
