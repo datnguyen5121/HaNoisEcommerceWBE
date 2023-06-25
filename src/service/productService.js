@@ -96,14 +96,15 @@ let getProductByCategory = (inputCategory) => {
   });
 };
 
-let getProductByGenderCategory = (gender, productName, inputCategory) => {
+let getProductByGenderCategory = (gender, inputCategory, productName) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const data = await Product.find(
-        { gender: gender },
-        { productName: productName },
-        { category: { $in: inputCategory } },
-      );
+      const data = await Product.find({
+        gender: gender,
+        productName: productName,
+        category: { $in: inputCategory },
+      });
+      console.log(data);
 
       resolve({
         EC: 0,
