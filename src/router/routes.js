@@ -46,6 +46,8 @@ const routes = (app) => {
 
   app.get("/api/get-tag", tagController.getTag);
   app.get("/api/get-all-tag", tagController.getAllTag);
+
+  app.get("/api/get-all-tag", tagController.getAllTag);
   app.put("/api/update-tag", tagController.updateTagById);
   app.post("/api/create-new-tag", tagController.createNewTag);
   app.delete("/api/delete-tag", tagController.deleteTag);

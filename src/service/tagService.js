@@ -16,20 +16,22 @@ let getTag = (inputId) => {
     }
   });
 };
-let getAllTag = (data) => {
+let getAllTag = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await Tag.find({}).select("_id navName").lean(); // Populate the "navName" field with the referenced Tag model
+      const result = await Tag.find({}).select("navName").lean(); // Populate the "navName" field with the referenced Tag model
+      const tagNames = result.map((tag) => tag.navName); // Extract only the navName from each tag object
       resolve({
         EC: 0,
         EM: "get all product tag success!",
-        data: result,
+        data: tagNames,
       });
     } catch (e) {
       reject(e);
     }
   });
 };
+
 let createNewTag = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
