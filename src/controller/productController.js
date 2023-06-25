@@ -20,11 +20,7 @@ let createNewProduct = async (req, res) => {
   try {
     const { title, description, datePublish, category, size } = req.body;
     const files = req.files;
-    console.log(title);
-
     const imgUrl = await getLinks(files);
-    console.log(imgUrl);
-
     const data = await productService.createNewProduct({
       // gender,
       title,
