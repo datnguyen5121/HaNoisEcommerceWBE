@@ -1,18 +1,27 @@
-import { ref } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "./config.js";
 import { v4 } from "uuid";
 
 const getLinks = async (values) => {
-  const uploadPromises = values.imgUrl.map((image) => {
-    const imgPath = `product_images/${values.title + v4()}`;
-    const imageRef = ref(storage, imgPath);
-    return uploadBytes(imageRef, image);
-  });
+  // try {
+  //   const uploadPromises = Object.values(values).map(async (imageArray) => {
+  //     const image = imageArray[0];
+  //     console.log(image);
+  //     const fileExtension = image.originalname.split(".").pop();
+  //     const fileName = `${v4()}.${fileExtension}`;
+  //     const storageRef = ref(storage, fileName);
+  //     await uploadBytes(storageRef, image.buffer);
+  //     const downloadURL = await getDownloadURL(storageRef);
+  //     return downloadURL;
+  //   });
 
-  const res = await Promise.all(uploadPromises);
-
-  const links = await Promise.all(res.map((r) => getDownloadURL(r.ref)));
-  return links;
+  //   const imageUrls = await Promise.all(uploadPromises);
+  //   return imageUrls;
+  // } catch (error) {
+  //   console.error("Error uploading images to Firebase:", error);
+  //   throw error;
+  // }
+  return values;
 };
 
 export default getLinks;

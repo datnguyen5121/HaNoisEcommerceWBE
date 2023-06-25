@@ -3,6 +3,20 @@ import userController from "../controller/userController.js";
 import JWTaction from "../middleware/JWTaction.js";
 import productController from "../controller/productController.js";
 import tagController from "../controller/tagController.js";
+import multer from "multer";
+
+// Configure multer
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const extension = file.originalname.split(".").pop();
+    cb(null, `${file.fieldname}-${uniqueSuffix}.${extension}`);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 const routes = (app) => {
   // app.all("*", JWTaction.checkUserJWT, JWTaction.checkUserPermission);
 
@@ -14,9 +28,22 @@ const routes = (app) => {
   // app.get("/api/get-book-paginate-search", bookController.getBookPaginateSearch);
 
   // app.post("/api/create-new-book", JWTaction.checkUserJWT, bookController.createNewBook);
-  app.post("/api/create-new-product", productController.createNewProduct);
+  app.post(
+    "/api/create-new-product",
+    upload.fields([
+      { name: "imgUrl0", maxCount: 1 },
+      { name: "imgUrl1", maxCount: 1 },
+      { name: "imgUrl2", maxCount: 1 },
+      { name: "imgUrl3", maxCount: 1 },
+      { name: "imgUrl4", maxCount: 1 },
+    ]),
+    productController.createNewProduct
+  );
   app.get("/api/get-product-by-id", productController.getProductById);
-  app.get("/api/get-product-by-category", productController.getProductByCategory);
+  app.get(
+    "/api/get-product-by-category",
+    productController.getProductByCategory
+  );
   app.delete("/api/delete-product-by-id", productController.deleteProductById);
   app.delete("/api/delete-all-product", productController.deleteAllProduct);
   app.put("/api/update-product-by-id", productController.updateProductById);
@@ -25,7 +52,7 @@ const routes = (app) => {
     "/api/get-all-user",
     // JWTaction.checkUserJWT,
     // JWTaction.checkADMINPermission,
-    userController.getAllUser,
+    userController.getAllUser
   );
   app.post("/api/create-new-user", userController.createNewUser);
   app.delete("/api/delete-user-by-id", userController.deleteUserById);
