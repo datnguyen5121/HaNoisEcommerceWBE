@@ -1,4 +1,5 @@
 import productService from "../service/productService.js";
+import getLinks from "../service/firebaseService.js";
 let getAllProduct = async (req, res) => {
   try {
     const data = await productService.getAllProduct();
@@ -15,67 +16,27 @@ let getAllProduct = async (req, res) => {
   }
 };
 
-// let getBookPaginate = async (req, res) => {
-//   try {
-//     let dataReq = req.query;
-//     console.log("dat", dataReq);
-//     const data = await productService.getBookPaginate(dataReq);
-//     if (data) {
-//       return res.status(200).json(data);
-//     } else {
-//       throw new Error("There are no book!");
-//     }
-//   } catch (e) {
-//     return res.status(500).json({
-//       EC: 1,
-//       EM: e.message,
-//     });
-//   }
-// };
-
-// let getBookPaginateType = async (req, res) => {
-//   try {
-//     let dataReq = req.query;
-//     console.log("dat", dataReq);
-//     const data = await productService.getBookPaginateType(dataReq);
-//     if (data) {
-//       return res.status(200).json(data);
-//     } else {
-//       throw new Error("There are no book!");
-//     }
-//   } catch (e) {
-//     return res.status(500).json({
-//       EC: 1,
-//       EM: e.message,
-//     });
-//   }
-// };
-// let getBookPaginateSearch = async (req, res) => {
-//   try {
-//     let dataReq = req.query;
-//     console.log("dat", dataReq);
-//     const data = await productService.getBookPaginateSearch(dataReq);
-//     if (data) {
-//       return res.status(200).json(data);
-//     } else {
-//       throw new Error("There are no book!");
-//     }
-//   } catch (e) {
-//     return res.status(500).json({
-//       EC: 1,
-//       EM: e.message,
-//     });
-//   }
-// };
 let createNewProduct = async (req, res) => {
   try {
-    let dataReq = req.body;
-    const data = await productService.createNewProduct(dataReq);
-    if (data) {
-      return res.status(200).json(data);
-    } else {
-      throw new Error("create product failed!");
-    }
+    const { title, description, datePublish, category, size } = req.body;
+    const files = req.files;
+    console.log(title);
+
+    const imgUrl = await getLinks(files);
+    console.log(imgUrl);
+
+    const data = await productService.createNewProduct({
+      // gender,
+      title,
+      description,
+      datePublish,
+      category,
+      size,
+      imgUrl,
+      // price,
+    });
+
+    return res.status(200).json(data);
   } catch (e) {
     return res.status(500).json({
       EC: 1,
@@ -83,6 +44,7 @@ let createNewProduct = async (req, res) => {
     });
   }
 };
+
 let getProductById = async (req, res) => {
   try {
     let id = req.query._id;
