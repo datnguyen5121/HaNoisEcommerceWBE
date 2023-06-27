@@ -158,7 +158,7 @@ let updateProductById = (inputId, inputData) => {
           size: inputData.size,
           imgUrl: inputData.imgUrl,
           price: inputData.price,
-        },
+        }
       );
       resolve({
         EC: 0,
@@ -169,6 +169,32 @@ let updateProductById = (inputId, inputData) => {
     }
   });
 };
+
+let getSearchValue = (inputValue) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await Product.find({
+        $or: [
+          {
+            title: {
+              $regex: escapeStringRegexp(inputValue),
+              $options: "i",
+            },
+          },
+          { category: { $in: [new RegExp(inputValue, "i")] } },
+        ],
+      });
+      resolve({
+        EC: 0,
+        EM: "Get search value success!",
+        data: data,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 const productService = {
   getAllProduct,
   createNewProduct,
@@ -181,5 +207,6 @@ const productService = {
   getProductByGenderCategory,
   // getBookPaginate,
   // getBookPaginateType,
+  getSearchValue,
 };
 export default productService;

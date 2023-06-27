@@ -95,6 +95,8 @@ const routes = (app) => {
   app.get("/api/get-all-product-tag", tagController.getAllProductTag);
   app.delete("/api/delete-product-tag", tagController.deleteProductTag);
 
+  app.get("/api/get-search-value", productController.getSearchValue);
+
   app.post("/api/stripe-payment", async (req, res) => {
     try {
       const lineItems = req.body.map((item) => {
