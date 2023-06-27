@@ -18,8 +18,7 @@ let getAllProduct = async (req, res) => {
 
 let createNewProduct = async (req, res) => {
   try {
-    const { gender, price, title, productName, description, datePublish, category, size } =
-      req.body;
+    const { gender, price, title, productName, description, category, size } = req.body;
     const files = req.files;
     console.log(title);
 
@@ -31,7 +30,6 @@ let createNewProduct = async (req, res) => {
       productName,
       title,
       description,
-      datePublish,
       category,
       size,
       imgUrl,
