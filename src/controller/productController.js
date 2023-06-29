@@ -18,7 +18,8 @@ let getAllProduct = async (req, res) => {
 
 let createNewProduct = async (req, res) => {
   try {
-    const { gender, price, title, productName, description, category, size } = req.body;
+    const { gender, price, title, productName, description, category, size } =
+      req.body;
     const files = req.files;
     console.log(title);
 
@@ -84,7 +85,11 @@ let getProductByGenderCategory = async (req, res) => {
     let gender = req.query.gender;
     let productName = req.query.productName;
     let category = req.query.category;
-    const data = await productService.getProductByGenderCategory(gender, category, productName);
+    const data = await productService.getProductByGenderCategory(
+      gender,
+      category,
+      productName
+    );
     if (data) {
       return res.status(200).json(data);
     } else {
@@ -146,6 +151,24 @@ let updateProductById = async (req, res) => {
     });
   }
 };
+
+let getSearchValue = async (req, res) => {
+  try {
+    let inputValue = req.query.q;
+    const data = await productService.getSearchValue(inputValue);
+    if (data) {
+      return res.status(200).json(data);
+    } else {
+      throw new Error("There are no product!");
+    }
+  } catch (e) {
+    return res.status(500).json({
+      EC: 1,
+      EM: e.message,
+    });
+  }
+};
+
 const productController = {
   getAllProduct,
   createNewProduct,
@@ -155,6 +178,7 @@ const productController = {
   updateProductById,
   getProductByCategory,
   getProductByGenderCategory,
+  getSearchValue,
   // getBookPaginate,
   // getBookPaginateType,
   // getBookPaginateSearch,

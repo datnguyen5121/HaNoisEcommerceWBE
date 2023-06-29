@@ -10,7 +10,7 @@ const getLinks = async (values) => {
       const fileExtension = image.originalname.split(".").pop();
       const fileName = `${v4()}.${fileExtension}`;
       const storageRef = ref(storage, fileName);
-      await uploadBytes(storageRef, readFileSync(image.path));
+      await uploadBytes(storageRef, image.buffer);
       const downloadURL = await getDownloadURL(storageRef);
       return downloadURL;
     });

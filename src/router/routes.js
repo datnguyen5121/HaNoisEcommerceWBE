@@ -5,8 +5,10 @@ import productController from "../controller/productController.js";
 import tagController from "../controller/tagController.js";
 import multer from "multer";
 import sizeController from "../controller/sizeController.js";
+import stripe from "stripe";
+
 // Configure multer
-const storage = multer.diskStorage({
+const storage = multer.memoryStorage({
   destination: "uploads/",
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -16,6 +18,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+let stripeGateway = stripe(process.env.STRIPE_SECRET_KEY);
+let DOMAIN = process.env.DOMAIN;
 
 const routes = (app) => {
   // app.all("*", JWTaction.checkUserJWT, JWTaction.checkUserPermission);
@@ -89,6 +94,41 @@ const routes = (app) => {
   app.put("/api/update-size", sizeController.updateSize);
   app.get("/api/get-all-size", sizeController.getAllSize);
   app.delete("/api/delete-size", sizeController.deleteSize);
+  app.get("/api/get-search-value", productController.getSearchValue);
+
+  app.post("/api/stripe-payment", async (req, res) => {
+    try {
+      const lineItems = req.body.map((item) => {
+        return {
+          price_data: {
+            currency: "vnd",
+            product_data: {
+              name: item.title,
+              images: [item.imageUrl],
+            },
+            unit_amount: item.price,
+          },
+          quantity: item.quantity,
+        };
+      });
+      const session = await stripeGateway.checkout.sessions.create({
+        mode: "payment",
+        payment_method_types: ["card"],
+        success_url: `${DOMAIN}/?success=true`,
+        cancel_url: `${DOMAIN}/?success=false`,
+        line_items: lineItems,
+        billing_address_collection: "required",
+      });
+
+      return res.status(200).json({ stripeSession: session });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        EC: 1,
+        EM: err.message,
+      });
+    }
+  });
 };
 
 export default routes;
