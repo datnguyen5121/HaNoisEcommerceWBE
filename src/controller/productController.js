@@ -132,7 +132,7 @@ let deleteAllProduct = async (req, res) => {
 };
 let updateProductById = async (req, res) => {
   try {
-    const { gender, price, title, productName, description, category, size } = req.body;
+    const { _id, gender, price, title, productName, description, category, size } = req.body;
     const files = req.files;
     console.log(title);
 

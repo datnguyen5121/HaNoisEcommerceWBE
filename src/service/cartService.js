@@ -6,7 +6,7 @@ let getAllCart = (email) => {
       const data = await Cart.find(
         { email: email },
         { createdAt: 0, updatedAt: 0, email: 0, _id: 0 },
-      ).populate("bookId", { createdAt: 0, updatedAt: 0 });
+      ).populate("productId", { createdAt: 0, updatedAt: 0 });
       resolve({
         EC: 0,
         EM: "Get all cart success!",
@@ -23,7 +23,7 @@ let updateCartById = (inputId, inputData) => {
     console.log("inputData", inputData);
     try {
       const data = await Cart.findOneAndUpdate(
-        { bookId: inputId },
+        { productId: inputId },
         {
           quantity: inputData,
         },

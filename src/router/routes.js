@@ -49,13 +49,7 @@ const routes = (app) => {
   );
   app.get(
     "/api/get-product-by-id",
-    upload.fields([
-      { name: "imgUrl0", maxCount: 1 },
-      { name: "imgUrl1", maxCount: 1 },
-      { name: "imgUrl2", maxCount: 1 },
-      { name: "imgUrl3", maxCount: 1 },
-      { name: "imgUrl4", maxCount: 1 },
-    ]),
+
     productController.getProductById,
   );
   app.get("/api/get-product-by-category", productController.getProductByCategory);
@@ -63,7 +57,17 @@ const routes = (app) => {
 
   app.delete("/api/delete-product-by-id", productController.deleteProductById);
   app.delete("/api/delete-all-product", productController.deleteAllProduct);
-  app.put("/api/update-product-by-id", productController.updateProductById);
+  app.put(
+    "/api/update-product-by-id",
+    upload.fields([
+      { name: "imgUrl0", maxCount: 1 },
+      { name: "imgUrl1", maxCount: 1 },
+      { name: "imgUrl2", maxCount: 1 },
+      { name: "imgUrl3", maxCount: 1 },
+      { name: "imgUrl4", maxCount: 1 },
+    ]),
+    productController.updateProductById,
+  );
 
   app.get(
     "/api/get-all-user",

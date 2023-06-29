@@ -21,7 +21,7 @@ let AddUpdateCart = async (req, res) => {
     const cartData = req.body;
     const result = await Cart.findOne({
       email: cartData.email,
-      bookId: cartData.bookId,
+      productId: cartData.productId,
     });
     if (result) {
       result.quantity = Number(result.quantity) + Number(cartData.quantity);
@@ -34,7 +34,7 @@ let AddUpdateCart = async (req, res) => {
     } else {
       const rs = await Cart.create({
         email: cartData.email,
-        bookId: cartData.bookId,
+        productId: cartData.productId,
         quantity: cartData.quantity,
       });
       return res.status(200).json({
@@ -72,7 +72,7 @@ const deleteCart = async (req, res) => {
 
     const result = await Cart.findOneAndDelete({
       email: cartData.email,
-      bookId: cartData.bookId,
+      productId: cartData.productId,
     });
     return res.status(200).json({
       EC: 0,
