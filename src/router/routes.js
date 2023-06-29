@@ -6,7 +6,7 @@ import tagController from "../controller/tagController.js";
 import multer from "multer";
 import sizeController from "../controller/sizeController.js";
 import stripe from "stripe";
-
+import imageController from "../controller/imageController.js";
 // Configure multer
 const storage = multer.memoryStorage({
   destination: "uploads/",
@@ -33,6 +33,9 @@ const routes = (app) => {
   // app.get("/api/get-book-paginate-search", bookController.getBookPaginateSearch);
 
   // app.post("/api/create-new-book", JWTaction.checkUserJWT, bookController.createNewBook);
+
+  app.get("/image", imageController.getImage);
+
   app.post(
     "/api/create-new-product",
     upload.fields([

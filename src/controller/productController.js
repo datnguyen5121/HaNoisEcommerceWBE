@@ -18,13 +18,13 @@ let getAllProduct = async (req, res) => {
 
 let createNewProduct = async (req, res) => {
   try {
-    const { gender, price, title, productName, description, category, size } =
-      req.body;
+    const { gender, price, title, productName, description, category, size } = req.body;
     const files = req.files;
     console.log(title);
 
     const imgUrl = await getLinks(files);
     console.log(imgUrl);
+    console.log("datttttttttttt");
 
     const data = await productService.createNewProduct({
       gender,
@@ -85,11 +85,7 @@ let getProductByGenderCategory = async (req, res) => {
     let gender = req.query.gender;
     let productName = req.query.productName;
     let category = req.query.category;
-    const data = await productService.getProductByGenderCategory(
-      gender,
-      category,
-      productName
-    );
+    const data = await productService.getProductByGenderCategory(gender, category, productName);
     if (data) {
       return res.status(200).json(data);
     } else {

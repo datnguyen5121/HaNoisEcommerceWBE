@@ -19,6 +19,7 @@ let getAllProduct = () => {
 let createNewProduct = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log("datttttttttttt");
       const result = await Product.create({
         gender: data.gender,
         productName: data.productName,
@@ -158,7 +159,7 @@ let updateProductById = (inputId, inputData) => {
           size: inputData.size,
           imgUrl: inputData.imgUrl,
           price: inputData.price,
-        }
+        },
       );
       resolve({
         EC: 0,
