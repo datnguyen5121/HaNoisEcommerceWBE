@@ -4,7 +4,7 @@ import JWTaction from "../middleware/JWTaction.js";
 import productController from "../controller/productController.js";
 import tagController from "../controller/tagController.js";
 import multer from "multer";
-
+import sizeController from "../controller/sizeController.js";
 // Configure multer
 const storage = multer.diskStorage({
   destination: "uploads/",
@@ -84,6 +84,11 @@ const routes = (app) => {
   app.post("/api/get-product-tag", tagController.getProductTag);
   app.get("/api/get-all-product-tag", tagController.getAllProductTag);
   app.delete("/api/delete-product-tag", tagController.deleteProductTag);
+
+  app.post("/api/create-new-size", sizeController.createNewSize);
+  app.put("/api/update-size", sizeController.updateSize);
+  app.get("/api/get-all-size", sizeController.getAllSize);
+  app.delete("/api/delete-size", sizeController.deleteSize);
 };
 
 export default routes;
