@@ -47,7 +47,17 @@ const routes = (app) => {
     ]),
     productController.createNewProduct,
   );
-  app.get("/api/get-product-by-id", productController.getProductById);
+  app.get(
+    "/api/get-product-by-id",
+    upload.fields([
+      { name: "imgUrl0", maxCount: 1 },
+      { name: "imgUrl1", maxCount: 1 },
+      { name: "imgUrl2", maxCount: 1 },
+      { name: "imgUrl3", maxCount: 1 },
+      { name: "imgUrl4", maxCount: 1 },
+    ]),
+    productController.getProductById,
+  );
   app.get("/api/get-product-by-category", productController.getProductByCategory);
   app.get("/api/get-product-by-gender-category", productController.getProductByGenderCategory);
 

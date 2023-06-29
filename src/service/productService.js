@@ -145,20 +145,31 @@ let deleteAllProduct = () => {
     }
   });
 };
-let updateProductById = (inputId, inputData) => {
+let updateProductById = (
+  _id,
+  gender,
+  price,
+  title,
+  imgUrl,
+  productName,
+  description,
+  category,
+  size,
+) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log(_id, gender, price, title, imgUrl, productName, description, category, size);
       const data = await Product.findByIdAndUpdate(
-        { _id: inputId },
+        { _id: _id },
         {
-          gender: inputData.gender,
-          productName: inputData.productName,
-          title: inputData.title,
-          description: inputData.description,
-          category: inputData.category,
-          size: inputData.size,
-          imgUrl: inputData.imgUrl,
-          price: inputData.price,
+          gender: gender,
+          productName: productName,
+          title: title,
+          description: description,
+          category: category,
+          size: size,
+          imgUrl: imgUrl,
+          price: price,
         },
       );
       resolve({

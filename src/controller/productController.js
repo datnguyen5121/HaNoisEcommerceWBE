@@ -132,9 +132,24 @@ let deleteAllProduct = async (req, res) => {
 };
 let updateProductById = async (req, res) => {
   try {
-    let id = req.body._id;
-    let dataReq = req.body;
-    const data = await productService.updateProductById(id, dataReq);
+    const { gender, price, title, productName, description, category, size } = req.body;
+    const files = req.files;
+    console.log(title);
+
+    const imgUrl = await getLinks(files);
+    console.log(imgUrl);
+    console.log("datttttttttttt");
+    const data = await productService.updateProductById(
+      _id,
+      gender,
+      price,
+      title,
+      imgUrl,
+      productName,
+      description,
+      category,
+      size,
+    );
     if (data) {
       return res.status(200).json(data);
     } else {
