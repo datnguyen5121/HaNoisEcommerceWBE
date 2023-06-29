@@ -45,15 +45,21 @@ const routes = (app) => {
       { name: "imgUrl3", maxCount: 1 },
       { name: "imgUrl4", maxCount: 1 },
     ]),
-    productController.createNewProduct,
+    productController.createNewProduct
   );
   app.get(
     "/api/get-product-by-id",
 
-    productController.getProductById,
+    productController.getProductById
   );
-  app.get("/api/get-product-by-category", productController.getProductByCategory);
-  app.get("/api/get-product-by-gender-category", productController.getProductByGenderCategory);
+  app.get(
+    "/api/get-product-by-category",
+    productController.getProductByCategory
+  );
+  app.get(
+    "/api/get-product-by-gender-category",
+    productController.getProductByGenderCategory
+  );
 
   app.delete("/api/delete-product-by-id", productController.deleteProductById);
   app.delete("/api/delete-all-product", productController.deleteAllProduct);
@@ -66,14 +72,14 @@ const routes = (app) => {
       { name: "imgUrl3", maxCount: 1 },
       { name: "imgUrl4", maxCount: 1 },
     ]),
-    productController.updateProductById,
+    productController.updateProductById
   );
 
   app.get(
     "/api/get-all-user",
     // JWTaction.checkUserJWT,
     // JWTaction.checkADMINPermission,
-    userController.getAllUser,
+    userController.getAllUser
   );
   app.post("/api/create-new-user", userController.createNewUser);
   app.delete("/api/delete-user-by-id", userController.deleteUserById);
@@ -115,13 +121,14 @@ const routes = (app) => {
 
   app.post("/api/stripe-payment", async (req, res) => {
     try {
+      console.log(req.body);
       const lineItems = req.body.map((item) => {
         return {
           price_data: {
             currency: "vnd",
             product_data: {
               name: item.title,
-              images: [item.imageUrl],
+              // images: [item.imgUrl[0]],
             },
             unit_amount: item.price,
           },
