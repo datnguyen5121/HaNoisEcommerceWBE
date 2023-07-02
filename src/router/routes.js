@@ -53,6 +53,9 @@ const routes = (app) => {
     productController.getProductById,
   );
   app.get("/api/get-product-by-category", productController.getProductByCategory);
+  app.get("/api/get-product-by-gender", productController.getProductByGender);
+  app.get("/api/get-product-by-gender-product", productController.getProductByGenderProduct);
+
   app.get("/api/get-product-by-gender-category", productController.getProductByGenderCategory);
 
   app.delete("/api/delete-product-by-id", productController.deleteProductById);
@@ -110,7 +113,7 @@ const routes = (app) => {
   app.post("/api/create-new-size", sizeController.createNewSize);
   app.put("/api/update-size", sizeController.updateSize);
   app.get("/api/get-all-size", sizeController.getAllSize);
-  app.delete("/api/delete-size", sizeController.deleteSize);
+  app.delete("/api/delete-size", sizeController.deleteSizeById);
   app.get("/api/get-search-value", productController.getSearchValue);
 
   app.post("/api/stripe-payment", async (req, res) => {

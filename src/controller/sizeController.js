@@ -48,10 +48,10 @@ let updateSize = async (req, res) => {
     });
   }
 };
-let deleteSize = async (req, res) => {
+let deleteSizeById = async (req, res) => {
   try {
     let id = req.body._id;
-    const data = await sizeService.deleteSize(id);
+    const data = await sizeService.deleteSizeById(id);
     if (data) {
       return res.status(200).json(data);
     } else {
@@ -68,6 +68,6 @@ const sizeController = {
   createNewSize,
   getAllSize,
   updateSize,
-  deleteSize,
+  deleteSizeById,
 };
 export default sizeController;

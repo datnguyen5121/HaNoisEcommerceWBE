@@ -38,13 +38,13 @@ let createNewSize = async (data) => {
   });
 };
 
-let updateSize = (inputId, inputData) => {
+let updateSize = (dataInput) => {
   return new Promise(async (resolve, reject) => {
     try {
       const data = await Size.findOneAndUpdate(
-        { navName: inputId },
+        { subnavName: dataInput.subnavName },
         {
-          size: inputData.size,
+          size: dataInput.size,
         },
       );
       resolve({

@@ -79,7 +79,39 @@ let getProductByCategory = async (req, res) => {
     });
   }
 };
-
+let getProductByGender = async (req, res) => {
+  try {
+    let gender = req.query.gender;
+    const data = await productService.getProductByGender(gender);
+    if (data) {
+      return res.status(200).json(data);
+    } else {
+      throw new Error("get product failed!");
+    }
+  } catch (e) {
+    return res.status(500).json({
+      EC: 1,
+      EM: e.message,
+    });
+  }
+};
+let getProductByGenderProduct = async (req, res) => {
+  try {
+    let gender = req.query.gender;
+    let productName = req.query.productName;
+    const data = await productService.getProductByGenderProduct(gender, productName);
+    if (data) {
+      return res.status(200).json(data);
+    } else {
+      throw new Error("get product failed!");
+    }
+  } catch (e) {
+    return res.status(500).json({
+      EC: 1,
+      EM: e.message,
+    });
+  }
+};
 let getProductByGenderCategory = async (req, res) => {
   try {
     let gender = req.query.gender;
@@ -188,6 +220,8 @@ const productController = {
   deleteAllProduct,
   updateProductById,
   getProductByCategory,
+  getProductByGender,
+  getProductByGenderProduct,
   getProductByGenderCategory,
   getSearchValue,
   // getBookPaginate,

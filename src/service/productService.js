@@ -95,7 +95,34 @@ let getProductByCategory = (inputCategory) => {
     }
   });
 };
-
+let getProductByGender = (inputGender) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await Product.find({ gender: inputGender });
+      resolve({
+        EC: 0,
+        EM: "Get the product success!",
+        data: data,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let getProductByGenderProduct = (inputGender, inputProduct) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await Product.find({ gender: inputGender, productName: inputProduct });
+      resolve({
+        EC: 0,
+        EM: "Get the product success!",
+        data: data,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let getProductByGenderCategory = (gender, inputCategory, productName) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -216,6 +243,8 @@ const productService = {
   getProductByCategory,
   deleteAllProduct,
   updateProductById,
+  getProductByGender,
+  getProductByGenderProduct,
   getProductByGenderCategory,
   // getBookPaginate,
   // getBookPaginateType,
