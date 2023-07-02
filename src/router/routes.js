@@ -53,6 +53,8 @@ const routes = (app) => {
     productController.getProductById,
   );
   app.get("/api/get-product-by-category", productController.getProductByCategory);
+  app.get("/api/get-product-by-gender-category", productController.getProductByGenderCategory);
+  app.get("/api/get-product-by-category", productController.getProductByCategory);
   app.get("/api/get-product-by-gender", productController.getProductByGender);
   app.get("/api/get-product-by-gender-product", productController.getProductByGenderProduct);
 
@@ -118,13 +120,14 @@ const routes = (app) => {
 
   app.post("/api/stripe-payment", async (req, res) => {
     try {
+      console.log(req.body);
       const lineItems = req.body.map((item) => {
         return {
           price_data: {
             currency: "vnd",
             product_data: {
               name: item.title,
-              images: [item.imageUrl],
+              // images: [item.imgUrl[0]],
             },
             unit_amount: item.price,
           },
