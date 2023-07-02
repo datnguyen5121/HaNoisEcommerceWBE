@@ -16,8 +16,7 @@ app.use(
   cors({
     // origin: "http://localhost:5173",
     // origin: "https://ha-nois-ecommerce-wfe.vercel.app",
-    origin: "https://ha-nois-ecommerce-wfe-nine.vercel.app/",
-
+    origin: "https://ha-nois-ecommerce-wfe-nine.vercel.app",
     credentials: true,
   }),
 );
