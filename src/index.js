@@ -14,7 +14,7 @@ const dbUrl = process.env.DATABASE_URL;
 
 app.use(
   cors({
-    // origin: "http://localhost:5173",
+    // origin: "http://127.0.0.1:5173",
     // origin: "https://ha-nois-ecommerce-wfe.vercel.app",
     origin: "https://ha-nois-ecommerce-wfe-nine.vercel.app",
     credentials: true,
